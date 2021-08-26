@@ -8,7 +8,9 @@ PairedTasks = collections.namedtuple('PairedTasks', ('task_1', 'task_2'))
 
 def optimum_task_assignment(task_durations: List[int]) -> List[PairedTasks]:
     # TODO - you fill in here.
-    return []
+    task_durations.sort()
+    print(F"Len(task_durations) = {len(task_durations)}")
+    return [PairedTasks(task_durations[i], task_durations[~i]) for i in range(len(task_durations) // 2)]
 
 
 if __name__ == '__main__':

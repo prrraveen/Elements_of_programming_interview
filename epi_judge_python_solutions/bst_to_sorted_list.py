@@ -44,7 +44,7 @@ def bst_to_doubly_linked_list_wrapper(executor, tree):
 
     if l is not None and l.left is not None:
         raise TestFailure(
-            'Function must return the head of the list. Left link must be None'
+            'Function must return the head of the list. Left link must be None dhsjdsd dshkjds '
         )
 
     v = []
