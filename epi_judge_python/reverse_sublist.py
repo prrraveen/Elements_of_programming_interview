@@ -6,8 +6,6 @@ from test_framework import generic_test
 
 def reverse_sublist(L: ListNode, start: int,
                     finish: int) -> Optional[ListNode]:
-    # TODO - you fill in here.
-    return None
 
 
 if __name__ == '__main__':

@@ -5,9 +5,16 @@ from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
 
-def replace_and_remove(size: int, s: List[str]) -> int:
-    # TODO - you fill in here.
+def replace_and_remove(size: int, xs: List[str]) -> int:
     return 0
+
+
+
+xs: List[str] = ['a', 'c', 'f', 'b', 'g', 'f', 'a']
+# xs: List[str] = ['a', 'c', 'f', 'g', 'f', 'a']
+k = len(xs)
+replace_and_remove(k, xs)
+print(F"Xs = {xs}")
 
 
 @enable_executor_hook

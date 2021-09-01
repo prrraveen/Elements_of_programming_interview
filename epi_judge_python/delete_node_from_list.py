@@ -1,5 +1,6 @@
 import functools
 
+import search_in_list
 from list_node import ListNode
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
@@ -7,8 +8,7 @@ from test_framework.test_utils import enable_executor_hook
 
 # Assumes node_to_delete is not tail.
 def deletion_from_list(node_to_delete: ListNode) -> None:
-    # TODO - you fill in here.
-    return
+
 
 
 @enable_executor_hook
