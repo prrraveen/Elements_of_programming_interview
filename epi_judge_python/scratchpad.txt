@@ -1,0 +1,10 @@
+    prev, current = None, xs
+    while current:
+        next = current.next
+        current.next = prev
+
+        """do things for next round"""
+        prev = current
+        current = next
+        print(prev)
+    return prev
