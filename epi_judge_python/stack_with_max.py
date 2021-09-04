@@ -9,7 +9,8 @@ class Node:
     def __init__(self, data=None, prev=None, next=None):
         self.data = data
         self.next = next
-        self.prev = next
+        self.prev = prev
+
     def __str__(self):
         return str(self.data)
 
@@ -35,8 +36,7 @@ class Stack:
     def push(self, x: int) -> None:
         if self.last:
             max_so_far = max(self.last.data.max, x) if self.last else x
-            self.last.next= Node(ElementWithMax(x, max_so_far))
-            self.last.next.prev = self.last
+            self.last.next= Node(ElementWithMax(x, max_so_far), self.last)
             self.last = self.last.next
         else:
             self.last = Node(ElementWithMax(x, x))
