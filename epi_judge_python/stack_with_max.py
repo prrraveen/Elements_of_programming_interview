@@ -5,25 +5,41 @@ from test_framework.test_failure import TestFailure
 
 ElementWithMax = collections.namedtuple('ElementWithMax', ('element', 'max'))
 
+class Node:
+    def __init__(self, data=None, prev=None, next=None):
+        self.data = data
+        self.next = next
+        self.prev = next
+    def __str__(self):
+        return str(self.data)
 
 class Stack:
-
     def __init__(self):
-        self.list_with_max = []
+        self.last = None
 
     def empty(self) -> bool:
-        return not self.list_with_max
+        return not self.last
 
     def max(self) -> int:
-        return self.list_with_max[-1].max
+        if self.last:
+            return self.last.data.max
 
     def pop(self) -> int:
-        return self.list_with_max.pop().element
+        if self.last:
+            temp = self.last
+            self.last = self.last.prev
+            return temp.data.element
+
 
 
     def push(self, x: int) -> None:
-        max_so_far = max(self.list_with_max[-1].max, x) if self.list_with_max else x
-        self.list_with_max.append(ElementWithMax(x, max_so_far))
+        if self.last:
+            max_so_far = max(self.last.data.max, x) if self.last else x
+            self.last.next= Node(ElementWithMax(x, max_so_far))
+            self.last.next.prev = self.last
+            self.last = self.last.next
+        else:
+            self.last = Node(ElementWithMax(x, x))
 
 
 def stack_tester(ops):
