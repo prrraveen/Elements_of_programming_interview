@@ -24,7 +24,6 @@ def has_cycle(head: ListNode) -> Optional[ListNode]:
             cycle_len_advanced_iter = head
             for _ in range(cycle_len(slow)):
                 cycle_len_advanced_iter = cycle_len_advanced_iter.next
-            print(F"Cycle_len_advanced_iter = {cycle_len_advanced_iter}")
 
             it = head
             # Both iterators advance in tandem.

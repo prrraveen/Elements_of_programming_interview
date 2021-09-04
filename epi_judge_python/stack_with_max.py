@@ -1,23 +1,29 @@
+import collections
+
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
+ElementWithMax = collections.namedtuple('ElementWithMax', ('element', 'max'))
+
 
 class Stack:
+
+    def __init__(self):
+        self.list_with_max = []
+
     def empty(self) -> bool:
-        # TODO - you fill in here.
-        return True
+        return not self.list_with_max
 
     def max(self) -> int:
-        # TODO - you fill in here.
-        return 0
+        return self.list_with_max[-1].max
 
     def pop(self) -> int:
-        # TODO - you fill in here.
-        return 0
+        return self.list_with_max.pop().element
+
 
     def push(self, x: int) -> None:
-        # TODO - you fill in here.
-        return
+        max_so_far = max(self.list_with_max[-1].max, x) if self.list_with_max else x
+        self.list_with_max.append(ElementWithMax(x, max_so_far))
 
 
 def stack_tester(ops):
@@ -49,6 +55,10 @@ def stack_tester(ops):
     except IndexError:
         raise TestFailure('Unexpected IndexError exception')
 
+# xs = [["Stack", 0], ["push", -784], ["pop", -784], ["push", 452], ["max", 452], ["pop", 452], ["push", 761],
+#       ["push", 402], ["max", 761], ["pop", 402], ["max", 761], ["pop", 761]]
+#
+# stack_tester(xs)
 
 if __name__ == '__main__':
     exit(
