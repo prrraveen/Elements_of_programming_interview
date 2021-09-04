@@ -1,10 +1,18 @@
-    prev, current = None, xs
-    while current:
-        next = current.next
-        current.next = prev
+    if not tree:
+        return None
 
-        """do things for next round"""
-        prev = current
-        current = next
-        print(prev)
-    return prev
+    result = deque([[tree]])
+    res = []
+    while result:
+        nodes = result.pop()
+        children = deque()
+        while nodes:
+            node = nodes.pop()
+            if node.left:
+                children.append(node.left)
+            if node.right:
+                children.append(node.right)
+        if children:
+            result.append(children)
+            res.append(list(map(lambda x: x.data, children)))
+    return res
