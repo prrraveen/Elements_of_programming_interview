@@ -3,16 +3,16 @@ from test_framework import generic_test
 
 
 def is_symmetric(tree: BinaryTreeNode) -> bool:
-    def _is_sym(left, right):
+    def is_sym(left, right):
         if not left and not right:
             return True
 
         if left and right:
-            return left.data == right.data and _is_sym(left.left, right.right) and _is_sym(left.right, right.left)
+            return left.data == right.data and is_sym(left.left, right.right) and is_sym(left.right, right.left)
 
         return False
 
-    return _is_sym(tree.left, tree.right) if tree else True
+    return is_sym(tree.left, tree.right) if tree else True
 
 
 
