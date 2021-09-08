@@ -1,27 +1,27 @@
+import math
 from typing import List
 
 from test_framework import generic_test
 
 
 def intersect_two_sorted_arrays(xs: List[int], ys: List[int]) -> List[int]:
-    i = 0
-    j = 0
-    result = []
-    temp = None
-    while i < len(xs) and j < len(ys):
-        if xs[i] < ys[j]:
-            i += 1
-        elif xs[i] > ys[j]:
-            j += 1
+    p1, p2 = 0, 0
+    last_added, result = math.inf, []
+    while p1 < len(xs) and p2 < len(ys):
+        xp1 = xs[p1]
+        yp2 = ys[p2]
+        if xp1 < yp2:
+            p1 += 1
+        elif xp1 > yp2:
+            p2 += 1
         else:
-            if temp != xs[i]:
-                temp = xs[i]
-                result.append(temp)
-            i += 1
-            j += 1
+            if last_added != xp1:
+                result.append(xp1)
+            last_added = xp1
+            p1 += 1
     return result
-    # TODO - you fill in here.
-    return []
+    return
+
 
 
 if __name__ == '__main__':

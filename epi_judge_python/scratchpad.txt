@@ -1,23 +1,30 @@
-import math
 from typing import List
 
 from test_framework import generic_test
 
 
-def search_smallest(A: List[int]) -> int:
-    left, right = 0, len(A) - 1
-    while left < right:
-        mid = (left + right) // 2
-        if A[mid] > A[right]:
-            left = mid + 1
-        else: # A[mid] < right:
-            right = mid
-            continue
-    return A[left]
+def intersect_two_sorted_arrays(xs: List[int], ys: List[int]) -> List[int]:
+    i = 0
+    j = 0
+    result = []
+    temp = None
+    while i < len(xs) and j < len(ys):
+        if xs[i] < ys[j]:
+            i += 1
+        elif xs[i] > ys[j]:
+            j += 1
+        else:
+            if temp != xs[i]:
+                temp = xs[i]
+                result.append(temp)
+            i += 1
+            j += 1
+    return result
+    # TODO - you fill in here.
 
 
 if __name__ == '__main__':
     exit(
-        generic_test.generic_test_main('search_shifted_sorted_array.py',
-                                       'search_shifted_sorted_array.tsv',
-                                       search_smallest))
+        generic_test.generic_test_main('intersect_sorted_arrays.py',
+                                       'intersect_sorted_arrays.tsv',
+                                       intersect_two_sorted_arrays))
