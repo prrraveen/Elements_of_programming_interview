@@ -17,8 +17,6 @@ def find_kth_largest(k: int, A: List[int]) -> int:
     while min_heap:
         sort_result.append(min_heap.pop())
     
-    print(F"Sort_result = {sort_result}")
-    print(F"Min(sort_result) = {min(sort_result)}")
     return sort_result[-1]
 
 
