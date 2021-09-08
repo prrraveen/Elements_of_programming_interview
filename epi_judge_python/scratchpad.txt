@@ -1,18 +1,23 @@
-    if not tree:
-        return None
+import math
+from typing import List
 
-    result = deque([[tree]])
-    res = []
-    while result:
-        nodes = result.pop()
-        children = deque()
-        while nodes:
-            node = nodes.pop()
-            if node.left:
-                children.append(node.left)
-            if node.right:
-                children.append(node.right)
-        if children:
-            result.append(children)
-            res.append(list(map(lambda x: x.data, children)))
-    return res
+from test_framework import generic_test
+
+
+def search_smallest(A: List[int]) -> int:
+    left, right = 0, len(A) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if A[mid] > A[right]:
+            left = mid + 1
+        else: # A[mid] < right:
+            right = mid
+            continue
+    return A[left]
+
+
+if __name__ == '__main__':
+    exit(
+        generic_test.generic_test_main('search_shifted_sorted_array.py',
+                                       'search_shifted_sorted_array.tsv',
+                                       search_smallest))

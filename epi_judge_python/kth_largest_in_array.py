@@ -1,3 +1,4 @@
+import heapq
 from typing import List
 
 from test_framework import generic_test
@@ -7,8 +8,19 @@ from test_framework import generic_test
 # find_kth_largest(1, A) returns 3, find_kth_largest(2, A) returns 2,
 # find_kth_largest(3, A) returns 1, and find_kth_largest(4, A) returns -1.
 def find_kth_largest(k: int, A: List[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+    min_heap = [x for x in A[:k]]
+    heapq.heapify(min_heap)
+    for x in A[k:]:
+        heapq.heappushpop(min_heap, x)
+
+    sort_result = []
+    while min_heap:
+        sort_result.append(min_heap.pop())
+    
+    print(F"Sort_result = {sort_result}")
+    print(F"Min(sort_result) = {min(sort_result)}")
+    return sort_result[-1]
+
 
 
 if __name__ == '__main__':
