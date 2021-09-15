@@ -3,27 +3,14 @@ from typing import Optional
 from bst_node import BstNode as B
 from test_framework import generic_test
 
-def in_order(node, key):
-    if node is None:
-        return None
-    left = in_order(node.left, key)
-    return left or node if node.data > key else None or in_order(node.right, key)
-
-
-
-def find_first_greater_than_k(tree: B, k: int) -> Optional[B]:
-    result = None
-    if tree:
-        result = in_order(tree, k)
-
-    return result
-
-def bst_to_sorted_list(tree):
-    if tree:
-        bst_to_sorted_list(tree.left)
-        print(tree.data)
-        bst_to_sorted_list(tree.right)
-
+def find_first_greater_than_k(tree: B, key: int) -> Optional[B]:
+    subtree, first_so_far = tree, None
+    while subtree:
+        if subtree.data > key:
+            first_so_far, subtree = subtree, subtree.left
+        else:
+            subtree = subtree.right
+    return first_so_far
 
 # root = B(19, B(7, B(3, B(2), B(5)), B(11, None, B(17, B(13)))), B(43, B(23, None, B(37, B(29, None, B(31)), B(41))), B(47, None, B(53))))
 # bst_to_sorted_list(root)

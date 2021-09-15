@@ -2,31 +2,36 @@ from typing import List
 
 from test_framework import generic_test
 
+# def num_combinations_for_final_score(final_score: int, individual_play_scores: List[int]) -> int:
+#     def count(S, n):
+#         if n == 0:
+#             return 1
+#
+#         if n < 0:
+#             return 0
+#
+#         if not S and n > 0:
+#             return 0
+#
+#         return count(S[1:], n) + count(S, n - S[0])
+#
+#     return count(sorted(individual_play_scores), final_score)
+
 
 def num_combinations_for_final_score(final_score: int,
                                      individual_play_scores: List[int]) -> int:
-    memo = [[0] * (len(individual_play_scores) + 1) for _ in range(final_score + 1)]
+    def count(S, n):
+        ways = [0] * (n + 1)
+        ways[0] = 1
 
-    def ways(target, avc):
-        if target == 0:
-            return 1
-        if target < 0:
-            return 0
+        for i in  range(len(S)):
+            for j in range(len(ways)):
+                if S[i] <= j:
+                    ways[j] += ways[j - S[i]]
+        print(ways)
+        return ways[n]
 
-        if avc <= 0 and target >= 1:
-            return 0
-
-        if memo[target][avc]:
-            return memo[target][avc]
-
-        result = ways(target, avc - 1) + ways(target - individual_play_scores[avc - 1], avc)
-        memo[target][avc] = result
-        return result
-
-    res = ways(final_score, len(individual_play_scores))
-    print(memo)
-    return res
-
+    return count(individual_play_scores, final_score)
 
 if __name__ == '__main__':
     exit(

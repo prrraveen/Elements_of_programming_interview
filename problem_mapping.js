@@ -1832,7 +1832,7 @@ problem_mapping = {
                 "total": 949
             },
             "Python: k_largest_values_in_bst.py": {
-                "passed": 0,
+                "passed": 949,
                 "total": 949
             }
         },
@@ -1974,7 +1974,7 @@ problem_mapping = {
                 "total": 10
             },
             "Python: hanoi.py": {
-                "passed": 0,
+                "passed": 10,
                 "total": 10
             }
         },
@@ -2142,7 +2142,7 @@ problem_mapping = {
                 "total": 46
             },
             "Python: max_sum_subarray.py": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             }
         },
@@ -2170,7 +2170,7 @@ problem_mapping = {
                 "total": 100
             },
             "Python: levenshtein_distance.py": {
-                "passed": 0,
+                "passed": 100,
                 "total": 100
             }
         },
