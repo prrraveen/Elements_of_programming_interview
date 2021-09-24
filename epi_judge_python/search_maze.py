@@ -13,39 +13,37 @@ Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 WHITE, BLACK = range(2)
 
+
 def search_maze(maze: List[List[int]], s: Coordinate,
-                e: Coordinate) -> List[Coordinate]:
+                e: Coordinate):
+
     def _search_maze(curr):
-        # check if its out of maze or is Black
-        x, y = curr
 
-        if x < 0 or x >= len(maze):
+        if not (0 <= curr.x < len(maze) and 0 <= curr.y < len(maze[curr.x]) and maze[curr.x][curr.y] == WHITE):
             return False
 
-        if y < 0 or y >= len(maze[x]):
-            return False
-        
-
-        if maze[x][y] == BLACK:
-            return False
-        
-
-        maze[x][y] = BLACK
         path.append(curr)
+
+        maze[curr.x][curr.y] = BLACK # Mark it visited
+
         if curr == e:
             return True
 
-        if any(map(_search_maze, (Coordinate(x - 1, y), Coordinate(x + 1, y), Coordinate(x, y - 1), Coordinate(x, y + 1)))):
-            return True
+        temp = []
+        for (x, y) in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+            temp.append(_search_maze(Coordinate(curr.x + x, curr.y + y)))
 
+        is_there_path = any(temp)
+        if is_there_path:
+            return True
         del path[-1]
         return False
 
+
     path = []
     if not _search_maze(s):
-        return False
+        return []
     return path
-
 
 
 def path_element_is_feasible(maze, prev, cur):

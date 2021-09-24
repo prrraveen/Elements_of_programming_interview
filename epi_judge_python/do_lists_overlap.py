@@ -5,11 +5,59 @@ from list_node import ListNode
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
+from is_list_cyclic import has_cycle
+from do_terminated_lists_overlap import overlapping_no_cycle_lists
 
 
 def overlapping_lists(l0: ListNode, l1: ListNode) -> Optional[ListNode]:
-    # TODO - you fill in here.
-    return None
+
+    # Store the start of cycle if any.
+    root0, root1 = has_cycle(l0), has_cycle(l1)
+
+    if not root0 and not root1:
+        # Both lists don't have cycles.
+        return overlapping_no_cycle_lists(l0, l1)
+    elif (root0 and not root1) or (not root0 and root1):
+        # One list has cycle, one list has no cycle.
+        return None
+    # Both lists have cycles.
+    temp = root1
+    while temp:
+        temp = temp.next
+        if temp is root0 or temp is root1:
+            break
+
+    return root1 if temp is root0 else None
+
+
+
+# def _overlapping_lists(l0: ListNode, l1: ListNode) -> Optional[ListNode]:
+#     # print(F"L0 = {l0}")
+#     # print(F"L1 = {l1}")
+#     def Length(node):
+#         result = 0
+#         while node:
+#             result += 1
+#             node = node.next
+#         return result
+#
+#     size0, size1 = Length(l0), Length(l1)
+#     if size0 > size1:
+#         bigger, smaller = l0, l1
+#     else:
+#         bigger, smaller = l1, l0
+#
+#     for _ in range(abs(size1 - size0)):
+#         bigger = bigger.next
+#
+#     while bigger and smaller and bigger is not smaller:
+#         bigger = bigger.next
+#         smaller = smaller.next
+#
+#     return bigger
+
+
+
 
 
 @enable_executor_hook
