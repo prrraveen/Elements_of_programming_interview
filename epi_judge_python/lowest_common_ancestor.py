@@ -1,7 +1,9 @@
+import collections
 import functools
 from typing import Optional
 
 from binary_tree_node import BinaryTreeNode
+from binary_tree_node import BinaryTreeNode as B
 from test_framework import generic_test
 from test_framework.binary_tree_utils import must_find_node, strip_parent_link
 from test_framework.test_failure import TestFailure
@@ -10,8 +12,30 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(tree: BinaryTreeNode, node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return None
+    Status = collections.namedtuple('status', ('num_target_node', 'ancestor'))
+
+    def lca_healper(tree, node0, node1):
+        if not tree:
+            return Status(0, None)
+
+        left_result = lca_healper(tree.left, node0, node1)
+        if left_result.num_target_node == 2:
+            return left_result
+
+        right_result = lca_healper(tree.right, node0, node1)
+        if right_result.num_target_node == 2:
+            return right_result
+
+        num_target_nodes = (left_result.num_target_node + right_result.num_target_node + int(tree is node0) +
+                            int(tree is node1))
+
+        return Status(num_target_nodes, tree if num_target_nodes == 2 else None)
+
+    return lca_healper(tree, node0, node1).ancestor
+
+
+
+
 
 
 @enable_executor_hook

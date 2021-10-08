@@ -1,5 +1,6 @@
 import collections
 import functools
+import math
 from typing import List
 
 from test_framework import generic_test
@@ -10,8 +11,19 @@ Event = collections.namedtuple('Event', ('start', 'finish'))
 
 
 def find_max_simultaneous_events(A: List[Event]) -> int:
-    # TODO - you fill in here.
-    return 0
+    max_so_far = -math.inf
+    endpoints = [endpoint for interval in A for endpoint in interval]
+    for endpoint in endpoints:
+        count = 0
+        for [start, end] in A:
+            if start <= endpoint <= end:
+                count += 1
+        max_so_far = max(count, max_so_far)
+    return max_so_far
+
+
+
+
 
 
 @enable_executor_hook

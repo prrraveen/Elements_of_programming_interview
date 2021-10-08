@@ -896,7 +896,7 @@ problem_mapping = {
                 "total": 108
             },
             "Python: evaluate_rpn.py": {
-                "passed": 0,
+                "passed": 108,
                 "total": 108
             }
         },
@@ -1038,7 +1038,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: lowest_common_ancestor.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1052,7 +1052,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: lowest_common_ancestor_with_parent.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1250,7 +1250,7 @@ problem_mapping = {
                 "total": 101
             },
             "Python: sort_almost_sorted_array.py": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             }
         },
@@ -1350,7 +1350,7 @@ problem_mapping = {
                 "total": 2000
             },
             "Python: int_square_root.py": {
-                "passed": 0,
+                "passed": 2000,
                 "total": 2000
             }
         },
@@ -1690,7 +1690,7 @@ problem_mapping = {
                 "total": 97
             },
             "Python: calendar_rendering.py": {
-                "passed": 0,
+                "passed": 97,
                 "total": 97
             }
         },
@@ -1846,7 +1846,7 @@ problem_mapping = {
                 "total": 951
             },
             "Python: lowest_common_ancestor_in_bst.py": {
-                "passed": 0,
+                "passed": 951,
                 "total": 951
             }
         },
