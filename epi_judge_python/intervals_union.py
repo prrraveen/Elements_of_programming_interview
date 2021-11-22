@@ -11,8 +11,46 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 
 def union_of_intervals(intervals: List[Interval]) -> List[Interval]:
-    # TODO - you fill in here.
-    return []
+    # Empty input.
+    if not intervals:
+        return []
+
+    # Sort intervals according to left endpoints of intervals.
+    intervals.sort(key=lambda i: (i.left.val, not i.left.is_closed))
+    result = [intervals[0]]
+    for i in intervals:
+        if intervals and (i.left.val < result[-1].right.val or
+                          (i.left.val == result[-1].right.val and
+                           (i.left.is_closed or result[-1].right.is_closed))):
+            if (i.right.val > result[-1].right.val or
+                    (i.right.val == result[-1].right.val and i.right.is_closed)):
+                result[-1] = Interval(result[-1].left, i.right)
+        else:
+            result.append(i)
+    return result
+# def union_of_intervals(intervals: List[Interval]) -> List[Interval]:
+#     if not intervals:
+#         return []
+#     intervals.sort(key=lambda xs: (xs.left.val, not xs.left.is_closed))
+#     for interval in intervals:
+#         print(interval)
+#     result = [intervals[0]]
+#     i = 1
+#     while i < len(intervals):
+#         # print(F"i, intervals[i] = {i, intervals[i]}")
+#         print(F"result = {result}")
+#         print(F"intervals[i] = {intervals[i]}")
+#         print("*" * 10)
+#         if  result[-1].right.val >= intervals[i].left.val: # merge them
+#             bigger_end = (result[-1].right
+#                           if result[-1].right.val > intervals[i].right.val
+#                           else intervals[i].right)
+#             result[-1] = Interval(left=result[-1].left, right=bigger_end)
+#         else:
+#             result.append(intervals[i])
+#         i += 1
+#     # print(F"intervals = {intervals}")
+#     return result
 
 
 @enable_executor_hook

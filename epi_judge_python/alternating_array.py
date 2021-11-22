@@ -6,10 +6,22 @@ from test_framework.test_failure import PropertyName, TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def rearrange(A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+# def rearrange(A: List[int]) -> None:
+#     A.sort()
+#     mid = len(A) // 2
+#     result = []
+#     for i in range(mid):
+#         result += [A[i], A[mid + i]]
+#     A[:] = result
+#     print(F"A = {A}")
 
+def rearrange(A: List[int]) -> None:
+    A.sort()
+    for i in range(2, len(A), 2):
+        A[i - 1], A[i] = A[i], A[i - 1]
+
+# xs = list(range(1, 10))
+# print(F"rearrange(xs) = {rearrange(xs)}")
 
 @enable_executor_hook
 def rearrange_wrapper(executor, A):

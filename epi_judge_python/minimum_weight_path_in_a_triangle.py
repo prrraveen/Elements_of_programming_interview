@@ -4,8 +4,19 @@ from test_framework import generic_test
 
 
 def minimum_path_weight(triangle: List[List[int]]) -> int:
-    # TODO - you fill in here.
-    return 0
+    if not triangle:
+        return 0
+    for i in range(1, len(triangle)):
+        for j in range(len(triangle[i])):
+            if j == 0:
+                triangle[i][j] += triangle[i - 1][j]
+            elif j == len(triangle[i]) - 1:
+                triangle[i][j] += triangle[i-1][j-1]
+            else:
+                triangle[i][j] += min(triangle[i - 1][j], triangle[i - 1][j-1])
+    result = min(triangle[-1])
+    return result
+
 
 
 if __name__ == '__main__':

@@ -1,9 +1,11 @@
 from test_framework import generic_test
 
-
-def fibonacci(n: int) -> int:
-    # TODO - you fill in here.
-    return -1
+def fibonacci(n: int, cache={}) -> int:
+    if n <= 1:
+        return n
+    elif n not in cache:
+        cache[n] = fibonacci(n - 1) + fibonacci(n - 2)
+    return cache[n]
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 import collections
 import functools
+import itertools
 from typing import List
 
 from test_framework import generic_test
@@ -10,8 +11,8 @@ Person = collections.namedtuple('Person', ('age', 'name'))
 
 
 def group_by_age(people: List[Person]) -> None:
-    # TODO - you fill in here.
-    return
+    return people.sort(key=lambda x: x.age)
+
 
 
 @enable_executor_hook

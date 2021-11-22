@@ -2,8 +2,19 @@ from test_framework import generic_test
 
 
 def compute_binomial_coefficient(n: int, k: int) -> int:
-    # TODO - you fill in here.
-    return 0
+    def compute_x_choose_y(x, y):
+        if y in (0, x):
+            return 1
+        if x_choose_y[x][y] == 0:
+            without_y = compute_x_choose_y(x - 1, y)
+            with_y = compute_x_choose_y(x - 1, y - 1)
+            x_choose_y[x][y] = without_y + with_y
+        return x_choose_y[x][y]
+
+    x_choose_y  = [[0] * (k + 1) for _ in range(n + 1)]
+    return compute_x_choose_y(n, k)
+
+print(F"compute_binomial_coefficient(10, 3) = {compute_binomial_coefficient(10, 3)}")
 
 
 if __name__ == '__main__':

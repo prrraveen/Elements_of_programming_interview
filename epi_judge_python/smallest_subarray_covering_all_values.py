@@ -7,12 +7,24 @@ from test_framework.test_utils import enable_executor_hook
 
 Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
-
 def find_smallest_sequentially_covering_subset(paragraph: List[str],
                                                keywords: List[str]
                                                ) -> Subarray:
-    # TODO - you fill in here.
-    return Subarray(0, 0)
+    result = Subarray(start=-1, end=-1)
+    for i in range(len(paragraph)):
+        idx = 0
+        for j in range(i, len(paragraph)):
+            if idx == len(keywords):
+                if result == Subarray(-1, -1) or j - 1 - i < result.end - result.start:
+                    result = Subarray(start=i, end=j - 1)
+                break
+            if paragraph[j] == keywords[idx]:
+                idx += 1
+        if idx == len(keywords):
+            if result == Subarray(-1, -1) or j  - i < result.end - result.start:
+                result = Subarray(start=i, end=j)
+    return result
+
 
 
 @enable_executor_hook

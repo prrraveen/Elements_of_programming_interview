@@ -37,6 +37,9 @@ def decompose_into_dictionary_words(domain: str,
             decompositions.append(domain[idx + 1 - last_length[idx]:idx + 1])
             idx -= last_length[idx]
         decompositions = decompositions[::-1]
+    print(F"domain = {domain}")
+    print(F"dictionary = {dictionary}")
+    print(F"decompositions = {decompositions}")
     return decompositions
 
 

@@ -5,8 +5,17 @@ from test_framework.test_failure import TestFailure
 
 
 def find_missing_element(stream: Iterator[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+    xs = []
+    for x in stream:
+        xs.append(x)
+    xs.sort()
+    # print(F"xs = {xs}")
+    for i, x in enumerate(xs):
+        # print(F"i, x = {i, x}")
+        if i != x:
+            print(F"i, x = {i, x}")
+            return i
+    return -1
 
 
 def find_missing_element_wrapper(stream):

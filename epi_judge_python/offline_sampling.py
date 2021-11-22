@@ -11,9 +11,12 @@ from test_framework.test_utils import enable_executor_hook
 
 def random_sampling(k: int, xs: List[int]) -> None:
     for i in range(k):
-        rand_n = random.randrange(i, len(xs))
-        xs[i], xs[rand_n] = xs[rand_n], xs[i]
-    return xs[:k]
+        r = random.randrange(i, len(xs))
+        xs[r], xs[i] = xs[i], xs[r]
+
+
+
+
 
 
 @enable_executor_hook

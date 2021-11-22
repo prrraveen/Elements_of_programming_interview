@@ -2,11 +2,21 @@ from typing import List
 
 from binary_tree_with_parent_prototype import BinaryTreeNode
 from test_framework import generic_test
+from successor_in_tree import find_successor
 
 
 def inorder_traversal(tree: BinaryTreeNode) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    if not tree:
+        return []
+    result = []
+    while tree.left:
+        tree = tree.left
+
+    while tree:
+        result.append(tree.data)
+        tree = find_successor(tree)
+
+    return result
 
 
 if __name__ == '__main__':

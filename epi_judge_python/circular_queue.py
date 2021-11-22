@@ -4,20 +4,29 @@ from test_framework.test_failure import TestFailure
 
 class Queue:
     def __init__(self, capacity: int) -> None:
-        # TODO - you fill in here.
-        return
+        self.primary = []
+        self.secondary = []
+        self.length = 0
 
     def enqueue(self, x: int) -> None:
-        # TODO - you fill in here.
-        return
+        self.length += 1
+        self.primary.append(x)
 
     def dequeue(self) -> int:
-        # TODO - you fill in here.
-        return 0
+        if self.secondary:
+            self.length -= 1
+            return self.secondary.pop()
+        elif self.primary:
+            for x in reversed(self.primary):
+                self.secondary.append(x)
+            self.primary = []
+            self.length -= 1
+            return self.secondary.pop()
+        else:
+            raise ValueError('q is empty')
 
     def size(self) -> int:
-        # TODO - you fill in here.
-        return 0
+        return self.length
 
 
 def queue_tester(ops):

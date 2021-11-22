@@ -1,44 +1,40 @@
+import collections
 from typing import List
 
 from test_framework import generic_test
 
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
-
-def flip_color(start_x: int, start_y: int, image: List[List[bool]]) -> None:
-    result, stack = [], [(start_x, start_y)]
-    color = image[start_x][start_y]
-
-    while stack:
-        x, y = stack.pop()
-
-        if x < 0 or x >= len(image):
-            continue
-
-        if y < 0 or y >= len(image[x]):
-            continue
-
-        # print(color, image[x][y])
-        if image[x][y] != color: # avoid using return and continue
-            continue
-
-        image[x][y] = 1 - image[x][y] # Anki flip 1 to 0 and 0 to 1
-
-        for d in (0, 1), (0, -1), (1, 0), (-1, 0):
-            next_x = x + d[0]
-            next_y = y + d[y]
-            stack.append((next_x, next_y))
+# dx = [-1, 0, 1, 0]
+# dy = [0, 1, 0, -1]
 
 
-def _flip_color(x: int, y: int, image: List[List[bool]]) -> None:
+# WHITE, BLACK = 0, 1
+#
+# def flip_color(start_x: int, start_y: int, image: List[List[bool]]) -> None:
+#     color = image[start_x][start_y]
+#
+#     image[start_x][start_y] = 1 - color # flip its color
+#
+#     for dx, dy in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+#         new_x, new_y = start_x + dx, start_y + dy
+#
+#         if (0 <= new_x < len(image)
+#                 and 0 <= new_y < len(image[new_x])
+#                 and image[new_x][new_y] == color):
+#             flip_color(new_x, new_y, image)
+
+def flip_color(x: int, y: int, image: List[List[bool]]) -> None:
+    Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
     color = image[x][y]
-    image[x][y] = 1 - image[x][y]
-    for d in (0, 1), (0, -1), (1, 0), (-1, 0):
-        next_x, next_y = x + d[0], y + d[1]
-        if (0 <= next_x < len(image) and 0 <= next_y < len(image[next_x])
-            and image[next_x][next_y] == color):
-            _flip_color(next_x, next_y, image)
-
+    n = len(image)
+    q = collections.deque([Coordinate(x, y)])
+    image[x][y]  = 1 - image[x][y]
+    while q:
+        x, y = q.popleft()
+        for d in (-1, 0), (0, 1), (1, 0), (0, -1):
+            next_x, next_y = x + d[0], y + d[1]
+            if 0 <= next_x < n and 0 <= next_y < n and image[next_x][next_y] == color:
+                image[next_x][next_y] = 1 - image[next_x][next_y]
+                q.append(Coordinate(next_x, next_y))
 
 
 

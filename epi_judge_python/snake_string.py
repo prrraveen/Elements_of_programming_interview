@@ -1,10 +1,10 @@
+import collections
 from test_framework import generic_test
 
+Rows = collections.namedtuple('Rows', ['center1', 'top',  'center2', 'bottom'])
 
 def snake_string(s: str) -> str:
-    # TODO - you fill in here.
-    return ''
-
+    return s[1::4] + s[::2] + s[3::4]
 
 if __name__ == '__main__':
     exit(

@@ -1,3 +1,4 @@
+import collections
 import functools
 from typing import List
 
@@ -7,13 +8,46 @@ from test_framework.test_utils import enable_executor_hook
 
 class GraphVertex:
     def __init__(self) -> None:
-        self.d = -1
+        self.d = 0
         self.edges: List[GraphVertex] = []
 
 
 def is_any_placement_feasible(graph: List[GraphVertex]) -> bool:
-    # TODO - you fill in here.
+    for v in graph:
+        if v.d == 0:
+            q = collections.deque()
+            q.append(v)
+            v.d = 1
+            while q:
+                node = q.popleft()
+                for t in  node.edges:
+                    if t.d == 0:
+                        t.d = -node.d
+                        q.append(t)
+                    elif t.d == node.d:
+                        return False
     return True
+
+
+
+
+
+# def is_any_placement_feasible(graph: List[GraphVertex]) -> bool:
+#     def bfs(s):
+#         s.d = 0
+#         q = collections.deque([s])
+#
+#         while q:
+#             for t in q[0].edges:
+#                 if t.d == -1:  # Unvisited vertex.
+#                     t.d = q[0].d + 1
+#                     q.append(t)
+#                 elif t.d == q[0].d:
+#                     return False
+#             del q[0]
+#         return True
+#
+#     return all(bfs(v) for v in graph if v.d == -1)
 
 
 @enable_executor_hook

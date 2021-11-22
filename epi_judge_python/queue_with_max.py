@@ -1,19 +1,34 @@
+import collections
+
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
 class QueueWithMax:
+    def __init__(self):
+        self._entries = collections.deque()
+        self._candidate_for_maximum = collections.deque()
+
     def enqueue(self, x: int) -> None:
-        # TODO - you fill in here.
-        return
+        self._entries.append(x)
+        while self._candidate_for_maximum and self._candidate_for_maximum[-1] < x:
+            self._candidate_for_maximum.pop()
+        self._candidate_for_maximum.append(x)
 
     def dequeue(self) -> int:
-        # TODO - you fill in here.
-        return 0
+        if self._entries:
+            result = self._entries.popleft()
+            if result == self._candidate_for_maximum[0]:
+                self._candidate_for_maximum.popleft()
+            return result
+        raise IndexError('empty queue')
+
 
     def max(self) -> int:
-        # TODO - you fill in here.
-        return 0
+        if self._candidate_for_maximum:
+            return self._candidate_for_maximum[0]
+        raise ValueError('list is empty')
+
 
 
 def queue_tester(ops):

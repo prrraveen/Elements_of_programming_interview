@@ -6,11 +6,28 @@ from test_framework.binary_tree_utils import must_find_node
 from test_framework.test_utils import enable_executor_hook
 
 
+
+
 def pair_includes_ancestor_and_descendant_of_m(possible_anc_or_desc_0: BstNode,
                                                possible_anc_or_desc_1: BstNode,
                                                middle: BstNode) -> bool:
-    # TODO - you fill in here.
-    return True
+    def can_reach(start, end):
+        while start:
+            if start is end:
+                return True
+            start = start.left if start.data > end.data else start.right
+
+        return False
+
+    def navigate(first, _middle, last):
+        return can_reach(first, _middle) and can_reach(_middle, last)
+
+    if middle is possible_anc_or_desc_0 or middle is possible_anc_or_desc_1:
+        return False
+
+    return (navigate(possible_anc_or_desc_0, middle, possible_anc_or_desc_1)
+            or navigate(possible_anc_or_desc_1, middle, possible_anc_or_desc_0))
+
 
 
 @enable_executor_hook

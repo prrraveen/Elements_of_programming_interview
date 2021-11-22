@@ -6,25 +6,49 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
+# def overlapping_no_cycle_lists(l0: ListNode, l1: ListNode) -> ListNode:
+#     visited = set()
+#     while l0:
+#         visited.add(id(l0))
+#         l0 = l0.next
+#
+#     while l1:
+#         if id(l1) in visited:
+#             return l1
+#         l1 = l1.next
+
+# def overlapping_no_cycle_lists(l0: ListNode, l1: ListNode) -> ListNode:
+#     while l0:
+#         current = l1
+#         while current:
+#             if current is l0:
+#                 return l0
+#             current = current.next
+#         l0 = l0.next
+
 def overlapping_no_cycle_lists(l0: ListNode, l1: ListNode) -> ListNode:
-    def Length(node):
+    def length(node):
         result = 0
         while node:
             result += 1
             node = node.next
         return result
 
-    size0, size1 = Length(l0), Length(l1)
-    if size0 > size1:
-        l0, l1= l1, l0 # lets make L2 as bigger list
+    l0_size, l1_size = length(l0), length(l1)
 
-    for _ in range(abs(size1 - size0)):
-        l1 = l1.next
+    bigger, smaller = (l0, l1) if l0_size > l1_size else (l1, l0)
 
-    while l0 and l1 and l0 is not l1:
-        l0, l1 = l0.next, l1.next
+    diff = abs(l0_size - l1_size)
 
-    return l1
+    for _ in range(diff):
+        bigger = bigger.next
+        
+    while bigger and smaller:
+        if bigger is smaller:
+            return bigger
+        bigger, smaller = bigger.next, smaller.next
+
+
 
 
 @enable_executor_hook

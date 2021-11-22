@@ -1,3 +1,4 @@
+import collections
 import functools
 
 from test_framework import generic_test
@@ -12,9 +13,37 @@ class BinaryTreeNode:
         self.next = None  # Populates this field.
 
 
+# def construct_right_sibling(tree: BinaryTreeNode) -> None:
+#     if not tree:
+#         return None
+#
+#     def link(xs):
+#         curr = xs[0]
+#         for i in range(1, len(level)):
+#             curr.next = xs[i]
+#             curr = xs[i]
+#
+#     level = collections.deque([tree.left, tree.right]) if tree.left and tree.right else []
+#     while level:
+#         link(level)
+#         next_level = []
+#         last = None
+#         while level:
+#             node = level.popleft()
+#             if node.left and node.right:
+#                 next_level += [node.left, node.right]
+#         level += next_level
+
 def construct_right_sibling(tree: BinaryTreeNode) -> None:
-    # TODO - you fill in here.
-    return
+    def populate_children_next_field(start_node):
+        while start_node and start_node.left:
+            start_node.left.next = start_node.right
+            start_node.right.next = start_node.next and start_node.next.left
+            start_node = start_node.next
+
+    while tree and tree.left:
+        populate_children_next_field(tree)
+        tree = tree.left
 
 
 def traverse_next(node):

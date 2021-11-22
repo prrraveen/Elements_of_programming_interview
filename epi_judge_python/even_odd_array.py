@@ -8,17 +8,18 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def even_odd(xs):
-    left = 0
-    right = len(xs) - 1
+    left, right = 0, len(xs) - 1
     while left < right:
-        while xs[left] % 2 != 1 and left < right:
+        while left < len(xs) and xs[left] % 2 != 1:
             left += 1
-        while xs[right] % 2 != 0 and right > left:
+        while right >= 1 and xs[right] % 2 != 0:
             right -= 1
-        xs[left], xs[right] = xs[right], xs[left]
-    return xs
+        if left < right:
+            xs[left], xs[right] = xs[right], xs[left]
 
-xs = [1, 7, 3, 2, 5, 6, 7, 1, 5, 3, 2, 17]
+
+# xs = [1, 7, 3, 2, 5, 6, 7, 1, 5, 3, 2, 17]
+xs = [2, 0, 4, 2]
 print(F"Xs = {xs}")
 even_odd(xs)
 print(F"Xs = {xs}")

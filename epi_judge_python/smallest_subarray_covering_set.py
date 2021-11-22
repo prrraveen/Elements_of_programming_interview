@@ -8,11 +8,129 @@ from test_framework.test_utils import enable_executor_hook
 
 Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
+# def find_smallest_subarray_covering_set(paragraph: List[str],
+#                                         keywords: Set[str]) -> Subarray:
+#
+#     keywords_to_cover = collections.Counter(keywords)
+#     result = Subarray(start=-1, end=-1)
+#     remaining_to_cover = len(keywords)
+#     left = 0
+#     for right, p in enumerate(paragraph):
+#         if p in keywords:
+#             keywords_to_cover[p] -= 1
+#             if keywords_to_cover[p] >= 0:
+#                 remaining_to_cover -= 1
+#
+#         # Keeps advancing left until keywords_to_cover does not contain all
+#         # keywords.
+#         while remaining_to_cover == 0:
+#             if result == Subarray(
+#                     start=-1,
+#                     end=-1) or right - left < result.end - result.start:
+#                 result = Subarray(start=left, end=right)
+#             pl = paragraph[left]
+#             if pl in keywords:
+#                 keywords_to_cover[pl] += 1
+#                 if keywords_to_cover[pl] > 0:
+#                     remaining_to_cover += 1
+#             left += 1
+#     return result
 
-def find_smallest_subarray_covering_set(paragraph: List[str],
-                                        keywords: Set[str]) -> Subarray:
-    # TODO - you fill in here.
-    return Subarray(0, 0)
+def find_smallest_subarray_covering_set(paragraph, keywords):
+    keywords_to_cover = collections.Counter(keywords)
+    result = Subarray(start=-1, end=-1)
+    remaining_to_cover = len(keywords)
+    left = 0
+    for right, p in enumerate(paragraph):
+        if p in keywords:
+            keywords_to_cover[p] -= 1
+            if keywords_to_cover[p] >= 0:
+                remaining_to_cover -= 1
+
+        while remaining_to_cover == 0:
+            if (result == Subarray(start=-1, end=-1)
+                    or right - left < result.end - result.start):
+                result = Subarray(left, right)
+            p1 = paragraph[left]
+            if p1 in keywords:
+                keywords_to_cover[p1] += 1
+                if keywords_to_cover[p1] > 0:
+                    remaining_to_cover += 1
+            left += 1
+    return result
+
+
+
+# def find_smallest_subarray_covering_set(paragraph, keywords):
+#     n = len(paragraph)
+#     shortest_subarray = Subarray(float('-inf'), float('inf'))
+#     for i in range(n):
+#         subarrays, remaining = [], keywords.copy()
+#         for j in range(i, n):
+#             if j - i > shortest_subarray.end - shortest_subarray.start:
+#                 break
+#             if paragraph[j] in remaining:
+#                 remaining.remove(paragraph[j])
+#             if not remaining:
+#                 if j - i < shortest_subarray.end - shortest_subarray.start:
+#                     shortest_subarray = Subarray(i, j)
+#                 break
+#     return shortest_subarray
+
+# def find_smallest_subarray_covering_set(paragraph: List[str],
+#                                         keywords: Set[str]) -> Subarray:
+#     # print(F"len(paragraph) = {len(paragraph)}")
+#     subarrays = []
+#     for i in range(len(paragraph)):
+#         for j in range(i, len(paragraph)):
+#             subarrays.append(SubarrayWithStartEndIndexes(i, j, paragraph[i:j+1]))
+#
+#     result =  Subarray(float('-inf'), float('inf'))
+#
+#     for x in subarrays:
+#         if set(x.subarray).issuperset(keywords) and x.end - x.start < result.end - result.start:
+#             # print(F"x = {x}")
+#             result = Subarray(x.start, x.end)
+#     # print(F"result = {result}")
+#     return result
+
+
+
+
+
+
+
+# def find_smallest_subarray_covering_set(paragraph: List[str],
+#                                         keywords: Set[str]) -> Subarray:
+#
+#     keywords_to_cover = collections.Counter(keywords)
+#     result = Subarray(start=-1, end=-1)
+#     remaining_to_cover = len(keywords)
+#     left = 0
+#     for right, p in enumerate(paragraph):
+#         if p in keywords:
+#             keywords_to_cover[p] -= 1
+#             if keywords_to_cover[p] >= 0:
+#                 remaining_to_cover -= 1
+#
+#         # Keeps advancing left until keywords_to_cover does not contain all
+#         # keywords.
+#         while remaining_to_cover == 0:
+#             if result == Subarray(
+#                     start=-1,
+#                     end=-1) or right - left < result.end - result.start:
+#                 result = Subarray(start=left, end=right)
+#             pl = paragraph[left]
+#             if pl in keywords:
+#                 keywords_to_cover[pl] += 1
+#                 if keywords_to_cover[pl] > 0:
+#                     remaining_to_cover += 1
+#             left += 1
+#     return result
+# xs = ["a", "b", "c", "b", "a", "d", "c", "a", "e", "a", "a", "b", "e"]
+# ys = set(["b", "c", "e"])
+# print(F"find_smallest_subarray_covering_set(xs, ys) = {find_smallest_subarray_covering_set(xs, ys)}")
+
 
 
 @enable_executor_hook

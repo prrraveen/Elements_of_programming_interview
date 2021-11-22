@@ -10,8 +10,22 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return None
+    iter_0, iter_1 = node0, node1
+    nodes_on_path_to_root = set()
+
+    while iter_0 or iter_1:
+        if iter_0:
+            if iter_0 in nodes_on_path_to_root:
+                return iter_0
+            nodes_on_path_to_root.add(iter_0)
+            iter_0 = iter_0.parent
+
+        if iter_1:
+            if iter_1 in nodes_on_path_to_root:
+                return iter_1
+            nodes_on_path_to_root.add(iter_1)
+            iter_1 = iter_1.parent
+    raise ValueError('node_0 and node_1 are not on the same tree')
 
 
 @enable_executor_hook

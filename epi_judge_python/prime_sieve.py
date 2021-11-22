@@ -5,8 +5,17 @@ from test_framework import generic_test
 
 # Given n, return all primes up to and including n.
 def generate_primes(n: int) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    xs = [False, False] + [True] * (n - 1)
+    for i in range(len(xs)):
+        if xs[i]:
+            j = 2 * i
+            while j < len(xs):
+                xs[j] = False
+                j += i
+    return [i for i in range(len(xs)) if xs[i] is True]
+
+
+print(generate_primes(18))
 
 
 if __name__ == '__main__':
