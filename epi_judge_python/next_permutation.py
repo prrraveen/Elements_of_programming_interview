@@ -4,21 +4,32 @@ from test_framework import generic_test
 
 
 def next_permutation(perm: List[int]) -> List[int]:
-    # find the first entry from right that is smaller than the entry
-    # immediately after it.
-    inversion_point = len(perm) - 2
-    while inversion_point >= 0 and perm[inversion_point] >= perm[inversion_point + 1]:
-        inversion_point -= 1
-    if inversion_point == -1:
-        return [] # perm is the last permutation
-
-    for i in reversed(range(inversion_point + 1, len(perm))):
-        if perm[i] > perm[inversion_point]:
-            perm[inversion_point], perm[i] = perm[i], perm[inversion_point]
+    i = len(perm) - 1
+    while i > 0:
+        if perm[i] > perm[i - 1]:
             break
+        i -=1
+    if i == 0:
+        return []
+    s = i-1
+    min_at = i
+    for j in range(i, len(perm)):
+        if perm[j] > s:
+            min_at = j
+        else:
+            break
+    print(F"min_at, perm[min_at] = {min_at, perm[min_at]}")
+    print(F"s = {s}")
+    perm[min_at], perm[s] = perm[s], perm[min_at]
+    print(F"perm = {perm}")
+    perm[:] = perm[:i] + perm[i:][::-1]
 
-    perm[inversion_point+1:] = reversed(perm[inversion_point+1:])
-    return perm
+
+
+# xs = [6, 2, 1, 5, 4, 3, 0]
+# print(F"next_permutation(xs) = {next_permutation(xs)}")
+# print(F"xs = {xs}")
+
 
 
 if __name__ == '__main__':

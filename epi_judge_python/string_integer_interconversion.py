@@ -3,18 +3,21 @@ from test_framework.test_failure import TestFailure
 
 
 def int_to_string(x) -> str:
+    result = []
     is_negative = False
+
     if x < 0:
         x, is_negative = -x, True
 
-    result = []
     while True:
         result.append(chr(ord('0') + x % 10))
-        x = x // 10
+        x //= 10
         if x == 0:
             break
 
-    return ('-' if is_negative else '') + ''.join(reversed(result))
+
+    return ('-' if is_negative else  '') + ''.join(reversed(result))
+
 
 
 
