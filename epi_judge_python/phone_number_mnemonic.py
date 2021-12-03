@@ -40,6 +40,7 @@ def phone_mnemonic(phone_number):
 #     return result
 
 
+
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main(
