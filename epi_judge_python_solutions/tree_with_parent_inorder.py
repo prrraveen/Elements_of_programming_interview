@@ -5,7 +5,6 @@ from test_framework import generic_test
 
 
 def inorder_traversal(tree: BinaryTreeNode) -> List[int]:
-
     prev, result = None, []
     while tree:
         if prev is tree.parent:

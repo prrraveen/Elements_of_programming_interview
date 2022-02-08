@@ -14,32 +14,33 @@ class Node:
     def __str__(self):
         return str(self.data)
 
+
+
 class Stack:
+    ElementWithCachedMax = collections.namedtuple('ElementWithCachedMax', ('element', 'max'))
     def __init__(self):
-        self.last = None
+        self._element_with_cached_max = []
 
     def empty(self) -> bool:
-        return not self.last
+        return not self._element_with_cached_max
 
     def max(self) -> int:
-        if self.last:
-            return self.last.data.max
+        return self._element_with_cached_max[-1].max
 
     def pop(self) -> int:
-        if self.last:
-            temp = self.last
-            self.last = self.last.prev
-            return temp.data.element
-
-
+        if not self._element_with_cached_max:
+            raise ValueError('stack is empty')
+        else:
+            return self._element_with_cached_max.pop().element
 
     def push(self, x: int) -> None:
-        if self.last:
-            max_so_far = max(self.last.data.max, x) if self.last else x
-            self.last.next= Node(ElementWithMax(x, max_so_far), self.last)
-            self.last = self.last.next
+        if not self._element_with_cached_max:
+            self._element_with_cached_max.append(ElementWithMax(x, x))
         else:
-            self.last = Node(ElementWithMax(x, x))
+            current_max = self._element_with_cached_max[-1].max
+            if x > current_max:
+                current_max = x
+            self._element_with_cached_max.append(ElementWithMax(x, current_max))
 
 
 def stack_tester(ops):

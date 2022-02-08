@@ -9,9 +9,7 @@ from test_framework.test_utils import enable_executor_hook
 Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
 
-def find_smallest_sequentially_covering_subset(paragraph: List[str],
-                                               keywords: List[str]
-                                               ) -> Subarray:
+def find_smallest_sequentially_covering_subset(paragraph: List[str], keywords: List[str]) -> Subarray:
 
     # Maps each keyword to its index in the keywords array.
     keyword_to_idx = {k: i for i, k in enumerate(keywords)}

@@ -1,17 +1,17 @@
 from test_framework import generic_test
-
+from  main import ways
 
 def number_of_ways(n: int, m: int) -> int:
-    cache = [[1] * m for _ in range(n)]
-    cache[0][0] = 1
-    for i in range(n):
-        cache[i][0] = 1
-    for i in range(m):
-        cache[0][i] = 1
-    for i in range(1, n):
-        for j in range(1, m):
-            cache[i][j] = cache[i][j-1] + cache[i - 1][j]
-    return cache[n - 1][m - 1]
+    if n == m == 1:
+        return 1
+    first_row = [0] + [1] * (min(n, m) - 1)
+    second_row = [1] + [0] * (min(n, m) - 1)
+    for _ in range(max(n, m) - 1):
+        for i in range(1, len(second_row)):
+            second_row[i] = second_row[i - 1] + first_row[i]
+        first_row = second_row
+        second_row = [1] + [0] * (min(n, m) - 1)
+    return first_row[-1]
 
 
 

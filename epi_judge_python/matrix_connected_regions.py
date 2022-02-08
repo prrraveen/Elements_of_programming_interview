@@ -23,6 +23,7 @@ from test_framework import generic_test
 #             flip_color(new_x, new_y, image)
 
 def flip_color(x: int, y: int, image: List[List[bool]]) -> None:
+    print(F"image = {image}")
     Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
     color = image[x][y]
     n = len(image)

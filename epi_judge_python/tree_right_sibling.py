@@ -1,5 +1,6 @@
 import collections
 import functools
+from typing import List
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
@@ -34,16 +35,28 @@ class BinaryTreeNode:
 #                 next_level += [node.left, node.right]
 #         level += next_level
 
-def construct_right_sibling(tree: BinaryTreeNode) -> None:
-    def populate_children_next_field(start_node):
-        while start_node and start_node.left:
-            start_node.left.next = start_node.right
-            start_node.right.next = start_node.next and start_node.next.left
-            start_node = start_node.next
+# def construct_right_sibling(tree: BinaryTreeNode) -> None:
+#     def populate_children_next_field(start_node):
+#         while start_node and start_node.left:
+#             start_node.left.next = start_node.right
+#             start_node.right.next = start_node.next and start_node.next.left
+#             start_node = start_node.next
+#
+#     while tree and tree.left:
+#         populate_children_next_field(tree)
+#         tree = tree.left
 
-    while tree and tree.left:
-        populate_children_next_field(tree)
-        tree = tree.left
+def construct_right_sibling(tree: BinaryTreeNode) -> None:
+    if not tree:
+        return
+    def connect(xs: List[BinaryTreeNode]):
+        for i in range(0, len(xs) - 1):
+            xs[i].next = xs[i+1]
+
+    xs = [tree]
+    while xs:
+        connect(xs)
+        xs = [child for curr in xs for child in (curr.left, curr.right) if child]
 
 
 def traverse_next(node):

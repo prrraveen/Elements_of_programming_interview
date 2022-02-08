@@ -6,14 +6,19 @@ from test_framework import generic_test
 
 def search_smallest(A: List[int]) -> int:
     left, right = 0, len(A) - 1
-    while left < right:
+    while left <= right:
+        if right - left == 1:
+            return right
+        print(F"left, right = {left, right}")
+        print(F"A[left], A[right] = {A[left], A[right]}")
         mid = (left + right) // 2
-        if A[mid] > A[right]:
-            left = mid + 1
-        else: # A[mid] < right:
+        if A[mid] > A[right]: # Its not increasing subsequence. So the dipression should be in it
+            left = mid
+        else:
             right = mid
-            continue
-    return left
+    return right
+
+
 
 
 if __name__ == '__main__':

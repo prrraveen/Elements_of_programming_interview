@@ -7,25 +7,22 @@ from test_framework import generic_test
 
 
 def evaluate(expression: str) -> int:
-    intermediate_results: List[int] = []
-    delimiter = ','
-
-    operators = {
+    intermediate_result = []
+    OPERATORS = {
         '+': lambda y, x: x + y,
         '-': lambda y, x: x - y,
         '*': lambda y, x: x * y,
-        '/': lambda y, x: x // y
+        '/': lambda y, x: int(x / y)
     }
 
-    for token in expression.split(delimiter):
-        if token in operators:
-            intermediate_results.append(operators[token](
-                intermediate_results.pop(), intermediate_results.pop()))
+    for token in expression.split(','):
+        if token in OPERATORS:
+            intermediate_result.append(OPERATORS[token](
+                intermediate_result.pop(), intermediate_result.pop()
+            ))
         else:
-            intermediate_results.append(int(token))
-    return intermediate_results[-1]
-
-
+            intermediate_result.append(int(token))
+    # return intermediate_result[-1]
 
 if __name__ == '__main__':
     exit(

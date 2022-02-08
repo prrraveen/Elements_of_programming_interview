@@ -1,0 +1,20 @@
+def sol(n: int) -> ((int)):
+    def f(partial_result):
+        if len(partial_result) == n: # we found a solution
+            result.append(partial_result)
+            for i in range(n):
+                if not_attacking_position(i, partail_result):
+                    partial_result.append(u)
+                else:
+                    return
+
+    result = []
+    for col in range(n):
+        partial_result = (cell)
+        f(partial_result)
+    return result
+
+
+n = 4
+output = sol(4)
+print(output)

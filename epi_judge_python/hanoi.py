@@ -1,3 +1,4 @@
+import collections
 import functools
 from typing import List
 
@@ -6,6 +7,19 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 NUM_PEGS = 3
+
+def compute_tower_hanoi(num_rings: int) -> List[List[int]]:
+    Move = collections.namedtuple('Move', ('from', 'to', 'via', 'num_disks'))
+    result = []
+    pegs = [list(reversed(range(1, num_rings + 1)))]  + [[] for _ in range(1, NUM_PEGS)]
+    stack = []
+    while True:
+        if not pegs[0]:
+            break
+        stack(pegs[0], pegs[2], pegs[0], pegs[0].pop())
+
+    return result
+
 
 
 def compute_tower_hanoi(num_rings: int) -> List[List[int]]:
@@ -19,7 +33,10 @@ def compute_tower_hanoi(num_rings: int) -> List[List[int]]:
     result = []
     pegs = [list(reversed(range(1, num_rings + 1)))]  + [[] for _ in range(1, NUM_PEGS)]
     compute_tower_hanoi_steps(num_rings, 0, 1, 2)
+    print(F"pegs = {pegs}")
     return result
+
+print(F"compute_tower_hanoi(5) = {compute_tower_hanoi(5)}")
 
 
 

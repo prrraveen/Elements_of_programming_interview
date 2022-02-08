@@ -6,27 +6,51 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
-def has_cycle(head: ListNode) -> Optional[ListNode]:
-    def cycle_len(end):
-        start, step = end, 0
-        while True:
-            step += 1
-            start = start.next
-            if start is end:
-                return step
+# xs = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5, ListNode(6, ListNode(7, ListNode(8, ListNode(9, ListNode(10, ListNode(11, ListNode(12, ListNode(13, ListNode(14, ListNode(15, ListNode(16, ListNode(17)))))))))))))))))
+# tail = xs
+# while tail.next:
+#     tail = tail.next
+#
+# start_of_cycle = xs
+# for _ in range(1, 5):
+#     start_of_cycle = start_of_cycle.next
+#
+# tail.next = start_of_cycle
 
-    slow = fast = head
-    while fast and fast.next:
+def has_cycle(head: ListNode) -> Optional[ListNode]:
+    fast = slow = head
+    while fast and fast.next and fast.next.next:
         slow, fast = slow.next, fast.next.next
         if slow is fast:
-            cycle_len_advance_iter = head
-            for _ in range(cycle_len(slow)):
-                cycle_len_advance_iter = cycle_len_advance_iter.next
-            it = head
-            while it is not  cycle_len_advance_iter:
-                it = it.next
-                cycle_len_advance_iter = cycle_len_advance_iter.next
-            return it
+            slow = head
+            while slow is not fast:
+                slow, fast = slow.next, fast.next
+            return slow
+    return None
+
+
+def _has_cycle(head: ListNode) -> Optional[ListNode]:
+    def get_cycle_len(node):
+        current = node.next
+        result = 1
+        while current is not node:
+            result, current = result + 1, current.next
+        return result
+
+    first = second = head
+    while second and second.next and second.next.next:
+        first, second = first.next, second.next.next
+        if second is first:
+            second = head
+            for _ in range(get_cycle_len(first)):
+                second = second.next
+
+            first = head
+            while first is not second:
+                first, second = first.next, second.next
+
+            return first
+
     return None
 
 

@@ -5,25 +5,24 @@ from test_framework import generic_test
 
 
 def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
-    BalanceStatusWithHeight = collections.namedtuple('BalanceStatusWithHeight', ('balanced', 'height'))
+    NodesHeightWithBalance = collections.namedtuple('NodesHeightWithBalance', ('height', 'isBalanced'))
+    def f(node):
+        if not node:
+            return NodesHeightWithBalance(-1, True)
+        left_result = f(node.left)
+        if not left_result.isBalanced:
+            return NodesHeightWithBalance(0, False)
 
-    def check_balanced(tree):
-        if not tree:
-            return BalanceStatusWithHeight(True, -1) # Base case
+        right_result = f(node.right)
+        if not right_result.isBalanced:
+            return NodesHeightWithBalance(0, False)
 
-        left_result = check_balanced(tree.left)
-        if not left_result.balanced:
-            return BalanceStatusWithHeight(False, 0)
+        isBalanced = abs(left_result.height - right_result.height) <= 1
+        return NodesHeightWithBalance(max(left_result.height, right_result.height) + 1, isBalanced)
 
-        right_result = check_balanced(tree.right)
-        if not right_result.balanced:
-            return BalanceStatusWithHeight(False, 0)
-
-        is_balanced = abs(left_result.height - right_result.height) <= 1
-        height = max(left_result.height, right_result.height) + 1
-        return BalanceStatusWithHeight(is_balanced, height)
-    return check_balanced(tree).balanced
-
+    output = f(tree)
+    print(F"output = {output}")
+    return output.isBalanced
 
 
 if __name__ == '__main__':

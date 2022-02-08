@@ -16,11 +16,11 @@ from test_framework.test_utils import enable_executor_hook
 def search_entry_equal_to_its_index(A: List[int]) -> int:
     left, right = 0, len(A) - 1
     while left <= right:
+        print(F"left, right = {left, right}")
         mid = (left + right) // 2
-
         if mid == A[mid]:
             return mid
-        elif mid < A[mid]:
+        elif A[mid] > mid:
             right = mid - 1
         else:
             left = mid + 1

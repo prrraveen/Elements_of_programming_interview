@@ -1,9 +1,11 @@
 from typing import List
 from test_framework import generic_test
+from main import find_pattern
 
 
 def is_pattern_contained_in_grid(grid: List[List[int]],
                                  S: List[int]) -> bool:
+    return find_pattern(grid, S)
     def f(x, y, offset):
         if len(S) == offset:
             return True
