@@ -4,6 +4,12 @@ from test_framework import generic_test
 
 
 def multiply(num1: List[int], num2: List[int]) -> List[int]:
+    for i, placed_at in enumerate(perm):
+        if i == placed_at:
+            continue
+        holding = A[placed_at]
+        A[placed_at] = A[i]
+        perm[placed_at]
 
     sign = -1 if (num1[0] < 0) ^ (num2[0] < 0) else 1
     num1[0], num2[0] = abs(num1[0]), abs(num2[0])

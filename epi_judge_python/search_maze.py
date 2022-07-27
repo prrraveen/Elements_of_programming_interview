@@ -16,44 +16,34 @@ WHITE, BLACK = range(2)
 
 def search_maze(maze: List[List[int]], s: Coordinate,
                 e: Coordinate):
+    n, m = len(maze), len(maze[0])
 
-    def _search_maze(curr):
-
-        if not (0 <= curr.x < len(maze) and 0 <= curr.y < len(maze[curr.x]) and maze[curr.x][curr.y] == WHITE):
+    def _search_maze(node):
+        if node == e:
+            return True
+        if node in visited:
             return False
 
-        path.append(curr)
+        visited.add(node)
+        return any([
+            _search_maze(Coordinate(node.x + d[0], node.y + d[1])) for d in ((-1, 0), (0, 1), (1, 0), (0, -1)) if (
+                0 <= node.x + d[0] < n and 0 <= node.y + d[1] < m and maze[node.x + d[0]][node.y + d[1]] == WHITE
+            )
+        ])
 
-        maze[curr.x][curr.y] = BLACK # Mark it visited
-
-        if curr == e:
-            return True
-
-        temp = []
-        for (x, y) in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
-            temp.append(_search_maze(Coordinate(curr.x + x, curr.y + y)))
-
-        is_there_path = any(temp)
-        if is_there_path:
-            return True
-        del path[-1]
-        return False
+    visited = set()
+    return _search_maze(s)
 
 
-    path = []
-    if not _search_maze(s):
-        return []
-    return path
-
-
-def path_element_is_feasible(maze, prev, cur):
-    if not ((0 <= cur.x < len(maze)) and
-            (0 <= cur.y < len(maze[cur.x])) and maze[cur.x][cur.y] == WHITE):
-        return False
-    return cur == (prev.x + 1, prev.y) or \
-           cur == (prev.x - 1, prev.y) or \
-           cur == (prev.x, prev.y + 1) or \
-           cur == (prev.x, prev.y - 1)
+# maze =  [[0, 1, 0, 1, 0], [0, 0, 0, 1, 0], [0, 1, 1, 0, 1], [1, 0, 0, 0, 0], [1, 0, 0, 1, 1], [0, 0, 0, 0, 0],
+#        [1, 0, 0, 1, 0], [0, 0, 0, 0, 0], [1, 0, 1, 0, 0], [0, 1, 0, 0, 0], [0, 0, 0, 1, 1], [0, 0, 0, 1, 0],
+#        [0, 0, 0, 1, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 0, 1, 0], [1, 0, 0, 1, 0], [1, 0, 0, 0, 0],
+#        [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 1, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0],
+#        [0, 0, 0, 1, 1]]
+#
+# s =  Coordinate(8, 3)
+# e = Coordinate(17, 1)
+# print(F"search_maze(maze, s, e) = {search_maze(maze, s, e)}")
 
 
 @enable_executor_hook

@@ -1,23 +1,40 @@
 import collections
 import math
-
 from binary_tree_node import BinaryTreeNode as BstNode
 from test_framework import generic_test
 
-
 def is_binary_tree_bst(tree: BstNode) -> bool:
-    def preorder(tree: BstNode, lower_bound: int, upper_bound: int) -> bool:
+    def f(tree: BstNode, lo, hi) -> bool:
         if not tree:
             return True
-        if tree.data < lower_bound:
-            # print(F"tree.data, lower_bound = {tree.data, lower_bound}")
+        left_result = f(tree.left, lo, tree.data)
+        if not left_result:
             return False
-        if tree.data > upper_bound:
-            # print(F"tree.data, upper_bound = {tree.data, upper_bound}")
+        right_result = f(tree.right, tree.data, hi)
+        if not right_result:
             return False
-        return preorder(tree.left, lower_bound, tree.data) and preorder(tree.right, tree.data, upper_bound)
 
-    return preorder(tree, float('-inf'), float('inf'))
+        if not lo <= tree.data <= hi:
+            return False
+        return True
+    return f(tree, float('-inf'), float('inf'))
+
+
+
+
+# def is_binary_tree_bst(tree: BstNode) -> bool:
+#     def preorder(tree: BstNode, lower_bound: int, upper_bound: int) -> bool:
+#         if not tree:
+#             return True
+#         if tree.data < lower_bound:
+#             # print(F"tree.data, lower_bound = {tree.data, lower_bound}")
+#             return False
+#         if tree.data > upper_bound:
+#             # print(F"tree.data, upper_bound = {tree.data, upper_bound}")
+#             return False
+#         return preorder(tree.left, lower_bound, tree.data) and preorder(tree.right, tree.data, upper_bound)
+#
+#     return preorder(tree, float('-inf'), float('inf'))
 
 
 # root = B(500, B(450, B(400), B(550, B(200), B(600))), B(550))

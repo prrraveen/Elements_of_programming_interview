@@ -1,35 +1,52 @@
+import collections
 from typing import List
-
-from binary_tree_node import BinaryTreeNode
+from binary_tree_node import BinaryTreeNode as Bi
 from test_framework import generic_test
 
-def preorder_traversal(tree: BinaryTreeNode) -> List[int]:
-    if not tree:
-        return []
-    result, stack = [], []
-    stack = [tree]
-    while stack:
-        tree = stack.pop()
-        result.append(tree.data)
-        if tree.right:
-            stack.append(tree.right)
-        if tree.left:
-            stack.append(tree.left)
-    return result
+def check_binary_tree_is_height_balanced(tree):
+    IsBalancedWithHeight = collections.namedtuple('IsBalancedWithHeight', ('isBalanced', 'height'))
+    def f(tree: Bi) -> IsBalancedWithHeight:
+        if not tree:
+            return IsBalancedWithHeight(True, 0)
 
-# def preorder_traversal(tree: BinaryTreeNode) -> List[int]:
-#     def _preorder(node):
-#         if not node:
-#             return None
-#         result.append(node.data)
-#         _preorder(node.left)
-#         _preorder(node.right)
-#     result = []
-#     _preorder(tree)
-#     return result
+        left_result = f(tree.left)
+
+        if not left_result.isBalanced:
+            return left_result
+
+        right_result = f(tree.right)
+
+        if not right_result.isBalanced:
+            return right_result
+
+        if abs(left_result.height - right_result.height) > 1:
+            return IsBalancedWithHeight(False, -1)
+
+        return IsBalancedWithHeight(True, 1 + max(left_result.height, right_result.height))
+
+    return f(tree)
 
 
-if __name__ == '__main__':
-    exit(
-        generic_test.generic_test_main('tree_preorder.py', 'tree_preorder.tsv',
-                                       preorder_traversal))
+
+
+# if __name__ == '__main__':
+#     exit(
+#         generic_test.generic_test_main('tree_preorder.py', 'tree_preorder.tsv',
+#                                        preorder_traversal))
+
+xs =  Bi('H',
+         Bi('J'),
+         Bi('K',
+            Bi('L'),
+            Bi('M', Bi('N'))
+            ))
+
+xs =  Bi('H',
+         Bi('J'),
+         Bi('K',
+            Bi('L'),
+            Bi('M')
+            ))
+# xs = Bi('H')
+
+print(F"get_height(xs) = {check_binary_tree_is_height_balanced(xs)}")

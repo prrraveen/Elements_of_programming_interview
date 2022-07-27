@@ -5,6 +5,17 @@ from test_framework import generic_test
 from test_framework.test_failure import PropertyName, TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+def rearrange(A: List[int]) -> None:
+    B = list(sorted(A))
+    for i in range(2, len(A), 2):
+        B[i-1], B[i] = B[i], B[i-1]
+    A[:] = B
+
+
+xs = [7, 2, 7, 9, 3, 4, 3, 4, 5]
+xs = [2, 2, 3]
+print(F"rearrange(xs) = {rearrange(xs)}")
+
 
 # def rearrange(A: List[int]) -> None:
 #     A.sort()
@@ -15,10 +26,10 @@ from test_framework.test_utils import enable_executor_hook
 #     A[:] = result
 #     print(F"A = {A}")
 
-def rearrange(A: List[int]) -> None:
-    A.sort()
-    for i in range(2, len(A), 2):
-        A[i - 1], A[i] = A[i], A[i - 1]
+# def rearrange(A: List[int]) -> None:
+#     A.sort()
+#     for i in range(2, len(A), 2):
+#         A[i - 1], A[i] = A[i], A[i - 1]
 
 # xs = list(range(1, 10))
 # print(F"rearrange(xs) = {rearrange(xs)}")

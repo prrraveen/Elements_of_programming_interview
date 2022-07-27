@@ -2,26 +2,42 @@ import string
 
 from test_framework import generic_test
 
-def is_palindrome(xs: str) -> bool:
-    if not xs:
-        return True
-    tester = set(string.ascii_letters + string.digits)
-    left, right = 0, len(xs) - 1
+def is_palindrome(s: str) -> bool:
+    left, right = 0, len(s) - 1
     while left < right:
-        if xs[left] not in tester:
+        if not s[left].isalnum():
             left += 1
             continue
-        if xs[right] not in tester:
+        if not s[right].isalnum():
             right -= 1
             continue
-        if xs[left].lower() == xs[right].lower():
-            left += 1
-            right -= 1
-        else:
+        if s[left].lower() != s[right].lower():
+            print(s[left], s[right])
             return False
-    if left != right:
-        return False
+        left, right = left + 1, right - 1
     return True
+
+
+# def is_palindrome(xs: str) -> bool:
+#     if not xs:
+#         return True
+#     tester = set(string.ascii_letters + string.digits)
+#     left, right = 0, len(xs) - 1
+#     while left < right:
+#         if xs[left] not in tester:
+#             left += 1
+#             continue
+#         if xs[right] not in tester:
+#             right -= 1
+#             continue
+#         if xs[left].lower() == xs[right].lower():
+#             left += 1
+#             right -= 1
+#         else:
+#             return False
+#     if left != right:
+#         return False
+#     return True
 
 # def is_palindrome_v1(xs: str) -> bool:
 #     tester = set(string.ascii_lowercase + string.digits)

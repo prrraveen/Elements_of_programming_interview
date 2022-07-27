@@ -7,19 +7,37 @@ from test_framework import generic_test
 
 def sort_approximately_sorted_array(sequence: Iterator[int],
                                     k: int) -> List[int]:
-    result, min_heap = [], []
+    result = []
+    min_heap = []
     for x in itertools.islice(sequence, k):
-        heapq.heappush(min_heap, x)
+        heapq.heappush(min_heap,x)
 
     for x in sequence:
-        smallest = heapq.heappushpop(min_heap, x)
-        result.append(smallest)
+        result.append(heapq.heappushpop(min_heap, x))
 
     while min_heap:
-        smallest = heapq.heappop(min_heap)
-        result.append(smallest)
-
+        result.append(heapq.heappop(min_heap))
     return result
+
+
+
+
+
+# def sort_approximately_sorted_array(sequence: Iterator[int],
+#                                     k: int) -> List[int]:
+#     result, min_heap = [], []
+#     for x in itertools.islice(sequence, k):
+#         heapq.heappush(min_heap, x)
+#
+#     for x in sequence:
+#         smallest = heapq.heappushpop(min_heap, x)
+#         result.append(smallest)
+#
+#     while min_heap:
+#         smallest = heapq.heappop(min_heap)
+#         result.append(smallest)
+#
+#     return result
 
 
 def sort_approximately_sorted_array_wrapper(sequence, k):

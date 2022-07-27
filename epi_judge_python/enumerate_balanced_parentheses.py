@@ -23,26 +23,41 @@ from test_framework import generic_test, test_utils
 #     return _generate_balanced_parentheses(num_pairs, num_pairs, valid_prefix='')
 
 def generate_balanced_parentheses(num_pairs: int) -> List[str]:
-    def directed_generate_balanced_parentheses(num_left_parens_needed,
-                                               num_right_parens_needed,
-                                               valid_prefix,
-                                               result=[]):
-        if num_left_parens_needed > 0:  # Able to insert '('.
-            directed_generate_balanced_parentheses(num_left_parens_needed - 1,
-                                                   num_right_parens_needed,
-                                                   valid_prefix + '(')
-        if num_left_parens_needed < num_right_parens_needed:
-            # Able to insert ')'.
-            directed_generate_balanced_parentheses(num_left_parens_needed,
-                                                   num_right_parens_needed - 1,
-                                                   valid_prefix + ')')
-        if not num_right_parens_needed:
-            result.append(valid_prefix)
-        return result
+    if num_pairs == 0:
+        return ['']
+    result = {'()'}
+    for _ in range(1,num_pairs):
+        new_result = set()
+        for item in result:
+            new_result.add(F"(){item}")
+            new_result.add(F"({item})")
+            new_result.add(F"{item}()")
+        result = new_result
+    return list(result)
 
-    return directed_generate_balanced_parentheses(num_pairs,
-                                                  num_pairs,
-                                                  valid_prefix='')
+
+
+# def generate_balanced_parentheses(num_pairs: int) -> List[str]:
+#     def directed_generate_balanced_parentheses(num_left_parens_needed,
+#                                                num_right_parens_needed,
+#                                                valid_prefix,
+#                                                result=[]):
+#         if num_left_parens_needed > 0:  # Able to insert '('.
+#             directed_generate_balanced_parentheses(num_left_parens_needed - 1,
+#                                                    num_right_parens_needed,
+#                                                    valid_prefix + '(')
+#         if num_left_parens_needed < num_right_parens_needed:
+#             # Able to insert ')'.
+#             directed_generate_balanced_parentheses(num_left_parens_needed,
+#                                                    num_right_parens_needed - 1,
+#                                                    valid_prefix + ')')
+#         if not num_right_parens_needed:
+#             result.append(valid_prefix)
+#         return result
+#
+#     return directed_generate_balanced_parentheses(num_pairs,
+#                                                   num_pairs,
+#                                                   valid_prefix='')
 
 
 if __name__ == '__main__':

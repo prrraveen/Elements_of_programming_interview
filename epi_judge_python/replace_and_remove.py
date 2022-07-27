@@ -5,27 +5,27 @@ from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
 
-def replace_and_remove(size: int, s: List[str]) -> int:
-    write_idx, a_count = 0, 0
-    for i in range(size):
-        if s[i] != 'b':
-            s[write_idx] = s[i]
-            write_idx += 1
-        if s[i] == 'a':
-            a_count += 1
-
-    curr_idx = write_idx - 1
-    write_idx += a_count - 1
-    final_size = write_idx + 1
-    while curr_idx >= 0:
-        if s[curr_idx] == 'a':
-            s[write_idx-1:write_idx+1] = 'dd'
-            write_idx -= 2
-        else:
-            s[write_idx] = s[curr_idx]
-            write_idx -= 1
-        curr_idx -= 1
-    return final_size
+# def replace_and_remove(size: int, s: List[str]) -> int:
+#     write_idx, a_count = 0, 0
+#     for i in range(size):
+#         if s[i] != 'b':
+#             s[write_idx] = s[i]
+#             write_idx += 1
+#         if s[i] == 'a':
+#             a_count += 1
+#
+#     curr_idx = write_idx - 1
+#     write_idx += a_count - 1
+#     final_size = write_idx + 1
+#     while curr_idx >= 0:
+#         if s[curr_idx] == 'a':
+#             s[write_idx-1:write_idx+1] = 'dd'
+#             write_idx -= 2
+#         else:
+#             s[write_idx] = s[curr_idx]
+#             write_idx -= 1
+#         curr_idx -= 1
+#     return final_size
 
 
 

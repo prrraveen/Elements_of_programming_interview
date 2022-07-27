@@ -1,6 +1,25 @@
-import collections
 from typing import List
 from test_framework import generic_test
+
+def can_reach_end(A: List[int]) -> bool:
+    if len(A) == 1:
+        return True
+    leap_needed = 1
+    for i in reversed(range(len(A) - 1)):
+        if A[i] == 0:
+            leap_needed += 1
+            continue
+        if A[i] >= leap_needed:
+            leap_needed = 1
+        else:
+            leap_needed += 1
+    if leap_needed == 1:
+        return True
+    else:
+        return False
+    
+xs  = [5, 1, 4, 0, 1, 0, 0]
+print(F"can_reach_end(xs) = {can_reach_end(xs)}")
 
 # def can_reach_end(A: List[int]) -> bool:
 #     q = collections.deque([0])
@@ -28,16 +47,16 @@ from test_framework import generic_test
 #     return False
 
 
-def can_reach_end(A: List[int]) -> bool:
-    furthest_reach_so_far, last_index = 0, len(A) - 1
-    i = 0
-    steps = 0
-    while i <= furthest_reach_so_far and furthest_reach_so_far < last_index:
-        if A[i] + i > furthest_reach_so_far:
-            steps += 1
-            furthest_reach_so_far = A[i] + i
-        i += 1
-    return furthest_reach_so_far >= last_index
+# def can_reach_end(A: List[int]) -> bool:
+#     furthest_reach_so_far, last_index = 0, len(A) - 1
+#     i = 0
+#     steps = 0
+#     while i <= furthest_reach_so_far and furthest_reach_so_far < last_index:
+#         if A[i] + i > furthest_reach_so_far:
+#             steps += 1
+#             furthest_reach_so_far = A[i] + i
+#         i += 1
+#     return furthest_reach_so_far >= last_index
 
 # xs = [3, 3, 1, 0, 2, 0, 1]
 # xs = [3, 2, 0,  0,  2,  0,  1]

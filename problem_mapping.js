@@ -2058,7 +2058,7 @@ problem_mapping = {
                 "total": 11
             },
             "Python: enumerate_balanced_parentheses.py": {
-                "passed": 11,
+                "passed": 4,
                 "total": 11
             }
         },
@@ -2466,7 +2466,7 @@ problem_mapping = {
                 "total": 101
             },
             "Python: search_maze.py": {
-                "passed": 101,
+                "passed": 0,
                 "total": 101
             }
         },
